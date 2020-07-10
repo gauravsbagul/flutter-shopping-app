@@ -6,6 +6,8 @@ import 'package:state_management_shop_app/providers/cart.dart';
 import 'package:state_management_shop_app/widgets/badge.dart';
 import 'package:state_management_shop_app/widgets/productsGrid.dart';
 
+import 'cartScreen.dart';
+
 enum FilterOptions { Favorites, All, Cart }
 
 class ProductOverviewScreen extends StatefulWidget {
@@ -55,7 +57,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             ),
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
             ),
           ),
         ],
