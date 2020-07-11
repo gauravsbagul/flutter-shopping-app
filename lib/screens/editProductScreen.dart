@@ -87,13 +87,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
         });
       } else {
         bool res = await Provider.of<Products>(context, listen: false)
-            .addProdut(_editedProduct);
+            .addProduct(_editedProduct);
         setState(() {
           _isLoading = false;
         });
-        Navigator.of(context).pop();
       }
     } catch (error) {
+      print('ERROR: ${error}');
       setState(() {
         _isLoading = false;
       });
@@ -112,7 +112,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         ),
       );
     } finally {
-      Navigator.of(context).pop();
+      Navigator.canPop(context) ? Navigator.of(context).pop() : null;
     }
   }
 

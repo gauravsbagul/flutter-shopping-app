@@ -50,7 +50,7 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<bool> addProdut(Product product) async {
+  Future<bool> addProduct(Product product) async {
     const url = 'https://flutter-shop-app-5e85a.firebaseio.com/products.json';
     try {
       final response = await http.post(
