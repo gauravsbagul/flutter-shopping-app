@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// import 'package:state_management_shop_app/providers/products.dart';
-import 'package:state_management_shop_app/providers/cart.dart';
-import 'package:state_management_shop_app/widgets/badge.dart';
-import 'package:state_management_shop_app/widgets/productsGrid.dart';
+// import '../providers/products.dart';
+import '../providers/cart.dart';
+import '../widgets/appDrawer.dart';
+import '../widgets/badge.dart';
+import '../widgets/productsGrid.dart';
 
 import 'cartScreen.dart';
 
@@ -64,6 +65,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       body: ProductsGrid(_showOnlyFavorites),
     );
   }
