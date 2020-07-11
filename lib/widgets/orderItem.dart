@@ -44,10 +44,14 @@ class _OrderItemState extends State<OrderItem> {
                     .map((prod) => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(
-                              prod.title,
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            Container(
+                              width: 200,
+                              child: Text(
+                                prod.title,
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
                             ),
                             Text(
                               '${prod.quantity}x \$${prod.price}',

@@ -37,12 +37,11 @@ class Orders with ChangeNotifier {
                 .map((cp) => {
                       'id': cp.id,
                       'title': cp.title,
-                      'quantiry': cp.quantity,
+                      'quantity': cp.quantity,
                       'price': cp.price
                     })
                 .toList()
           }));
-      print('RESPONSE: ${response}');
 
       _orders.insert(
         0,
@@ -55,8 +54,43 @@ class Orders with ChangeNotifier {
       );
       notifyListeners();
     } catch (error) {
-      print('ERROR: ${error}');
       notifyListeners();
+      return;
+    }
+  }
+
+  Future<void> fetchAndSet() async {
+    const url = 'https://flutter-shop-app-5e85a.firebaseio.com/orders.json';
+
+    try {
+      final response = await http.get(url);
+      final List<OrderItem> loadedOrders = [];
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
+      extractedData.forEach((orderId, orderData) {
+        loadedOrders.add(OrderItem(
+          id: orderId,
+          amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
+          products: (orderData['products'] as List<dynamic>)
+              .map(
+                (item) => CartItem(
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  title: item['title'],
+                ),
+              )
+              .toList(),
+        ));
+      });
+      _orders = loadedOrders.reversed.toList();
+      notifyListeners();
+    } catch (error) {
+      notifyListeners();
+      return;
     }
   }
 }
