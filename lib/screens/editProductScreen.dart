@@ -80,7 +80,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
       _form.currentState.save();
       if (_editedProduct.id != null) {
-        Provider.of<Products>(context, listen: false)
+        bool res = await Provider.of<Products>(context, listen: false)
             .updateProdut(_editedProduct.id, _editedProduct);
         setState(() {
           _isLoading = false;
