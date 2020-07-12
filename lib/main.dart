@@ -13,6 +13,7 @@ import 'screens/productDetailsScreen.dart';
 import 'screens/productsOverviewScreen.dart';
 import 'providers/products.dart';
 import 'screens/userProductsScreen.dart';
+import 'helpers/customRoute.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,11 +50,14 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'My Shop',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.deepOrange,
-            fontFamily: 'Lato',
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+              primarySwatch: Colors.purple,
+              accentColor: Colors.deepOrange,
+              fontFamily: 'Lato',
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              pageTransitionsTheme: PageTransitionsTheme(builders: {
+                TargetPlatform.android: CustomPageTransitionBuilder(),
+                TargetPlatform.iOS: CustomPageTransitionBuilder(),
+              })),
           home: auth.isAuth
               ? ProductOverviewScreen()
               : FutureBuilder(
