@@ -5,6 +5,7 @@ class HttpExeption implements Exception {
 
   @override
   String toString() {
+    print('MESSAGE: HttpExeption toString ${message}');
     return message;
   }
 }
