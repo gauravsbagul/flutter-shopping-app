@@ -128,10 +128,11 @@ class _AuthCardState extends State<AuthCard> {
       return;
     }
     _formKey.currentState.save();
-    setState(() {
-      _isLoading = true;
-    });
+
     try {
+      setState(() {
+        _isLoading = true;
+      });
       if (_authMode == AuthMode.Login) {
         // Log user in
         await Provider.of<Auth>(context, listen: false).signInOrSignUp(
@@ -160,15 +161,22 @@ class _AuthCardState extends State<AuthCard> {
       } else if (error.toString().contains('INVALID_PASSWORD')) {
         errorMessage = 'Invalid Password.';
       }
+      setState(() {
+        _isLoading = false;
+      });
       _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage =
           'Colud not authenticate you. Please try again leter.';
+      setState(() {
+        _isLoading = false;
+      });
       _showErrorDialog(errorMessage);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   void _switchAuthMode() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/splashScreen.dart';
 import 'screens/cartScreen.dart';
 import 'providers/auth.dart';
 import 'providers/cart.dart';
@@ -53,7 +54,15 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Lato',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: auth.isAuth ? ProductOverviewScreen() : AuthScreen(),
+          home: auth.isAuth
+              ? ProductOverviewScreen()
+              : FutureBuilder(
+                  future: auth.tyrAutoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen()),
           routes: {
             ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
             CartScreen.routeName: (ctx) => CartScreen(),
